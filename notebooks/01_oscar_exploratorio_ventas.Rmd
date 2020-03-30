@@ -1,0 +1,26 @@
+---
+title: "Analisis de ventas Moto Rider"
+author: "Oscar Quesada Montiel"
+date: "3/29/2020"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+facturas <- read_delim(here::here("data","raw","ReporteVentasporFacturas_20190827_20200303.csv"),
+    ";", escape_double = FALSE, col_types = cols(Cliente = col_character(), 
+        Exento = col_double(), Fecha = col_date(format = "%m/%d/%Y"), 
+        Gravado = col_double(), Imp = col_double(), 
+        `Sub Desc` = col_double(), Subtotal = col_double(), 
+        Total = col_double()), trim_ws = TRUE)
+```
+
+```{r}
+facturas <- facturas %>% 
+    filter(!is.na(Fecha)) %>% 
+    select(-X8)
+```
+
